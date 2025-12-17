@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Breast Cancer Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #9ac0e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 420px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .card h2 {
+            color: #b30000;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        img {
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        button {
+            width: 48%;
+            background-color: #b30000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #8f0000;
+        }
+
+        .reset-btn {
+            background-color: #6c757d;
+        }
+
+        .reset-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .legend {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .legend span {
+            display: block;
+            margin: 3px 0;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #003366;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <!-- Card Title -->
+    <h2>Breast Cancer Detection</h2>
+    <div class="subtitle">
+        Machine Learning Based Prediction (5 Features)
+    </div>
+
+    <!-- Image -->
+    <img src="{{ url_for('static', filename='image7.jpg') }}"
+         alt="Breast Cancer Image" width="280">
+
+    <!-- Input Form -->
+    <form action="/predict" method="post">
+
+        <input type="text" name="radius_mean" placeholder="Radius Mean" required>
+        <input type="text" name="texture_mean" placeholder="Texture Mean" required>
+        <input type="text" name="perimeter_mean" placeholder="Perimeter Mean" required>
+        <input type="text" name="area_mean" placeholder="Area Mean" required>
+        <input type="text" name="smoothness_mean" placeholder="Smoothness Mean" required>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button type="submit">Predict</button>
+            <button type="reset" class="reset-btn">Reset</button>
+        </div>
+    </form>
+
+    <!-- Cancer / Non-Cancer Info -->
+    <div class="legend">
+        <strong>Prediction Classes:</strong>
+        <span>🔴 <b>Malignant (1)</b> – Cancer Detected</span>
+        <span>🟢 <b>Benign (0)</b> – No Cancer</span>
+    </div>
+
+    <!-- Prediction Result -->
+    {% if prediction_text %}
+        <div class="result">
+            Result: {{ prediction_text }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
